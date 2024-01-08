@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World!</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <style>
+    .hide {
+        display: none;
+    }
+    .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+
+    <script>
+        function connexion() {
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            console.log("username", username);
+            console.log("password", password);
+            if (username === "abir" && password === "123") {
+                console.log("yes");
+                document.getElementById("connexion_form").classList.add("hide");
+
+                // Afficher le contenu de l'onglet Commandes
+                document.getElementById("pills-commandes-tab").classList.add("active");
+                document.getElementById("pills-commandes").classList.add("active", "show");
+
+                // Cacher les autres onglets
+                document.getElementById("pills-produits-tab").classList.remove("active");
+                document.getElementById("pills-ajouter-produit-tab").classList.remove("active");
+                document.getElementById("pills-modifier-produit-tab").classList.remove("active");
+
+                // Cacher les contenus des autres onglets
+                document.getElementById("pills-produits").classList.remove("active", "show");
+                document.getElementById("pills-ajouter-produit").classList.remove("active", "show");
+                document.getElementById("pills-modifier-produit").classList.remove("active", "show");
+
+                // Afficher les onglets et leurs contenus
+                document.getElementById("pills-tab").style.display = "flex";
+                document.getElementById("pills-tabContent").style.display = "block";
+            } else {
+                document.getElementById("error-message").textContent = "Erreur de connexion";
+
+            }
+            return false;
+        }
+    </script>
+
+</head>
+
+<body>
+    <div class="container" id="connexion_form">
+        <div class="row justify-content-center">
+            <div class="col-md-4 login-container">
+                <h2 class="text-center mb-4">Connexion Administrateur</h2>
+                <div id="error-message" class="error-message"></div>
+
+                <form id="connexion_form" onsubmit="return connexion();">
+                    <div class="form-group">
+                        <label for="username">Nom d'utilisateur:</label>
+                        <input type="text" class="form-control" id="username"
+                            placeholder="Entrez votre nom d'utilisateur" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Mot de passe:</label>
+                        <input type="password" class="form-control" id="password"
+                            placeholder="Entrez votre mot de passe" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div>
+        
+    </div> -->
+
+    <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist" style="display: none;">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="pills-commandes-tab" data-bs-toggle="pill"
+                data-bs-target="#pills-commandes" type="button" role="tab" aria-controls="pills-commandes"
+                aria-selected="true">Commandes</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-produits-tab" data-bs-toggle="pill" data-bs-target="#pills-produits"
+                type="button" role="tab" aria-controls="pills-produits" aria-selected="false">Produits</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-ajouter-produit-tab" data-bs-toggle="pill"
+                data-bs-target="#pills-ajouter-produit" type="button" role="tab" aria-controls="pills-ajouter-produit"
+                aria-selected="false">Ajouter produit</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-modifier-produit-tab" data-bs-toggle="pill"
+                data-bs-target="#pills-modifier-produit" type="button" role="tab" aria-controls="pills-modifier-produit"
+                aria-selected="false">Modifier produit</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent" style="display: none;">
+        <div class="tab-pane fade show active" id="pills-commandes" role="tabpanel"
+            aria-labelledby="pills-commandes-tab">
+            liste commandes
+        </div>
+        <div class="tab-pane fade" id="pills-produits" role="tabpanel" aria-labelledby="pills-produits-tab">
+            liste produit
+        </div>
+        <div class="tab-pane fade" id="pills-ajouter-produit" role="tabpanel"
+            aria-labelledby="pills-ajouter-produit-tab">
+            <form id="ajouterProduitForm">
+                <div class="mb-3">
+                    <label for="idProduit" class="form-label">ID</label>
+                    <input type="text" class="form-control" id="idProduit" name="idProduit" required>
+                </div>
+                <div class="mb-3">
+                    <label for="nomProduit" class="form-label">Nom</label>
+                    <input type="text" class="form-control" id="nomProduit" name="nomProduit" required>
+                </div>
+                <div class="mb-3">
+                    <label for="quantiteProduit" class="form-label">Quantité</label>
+                    <input type="number" class="form-control" id="quantiteProduit" name="quantiteProduit" required>
+                </div>
+                <div class="mb-3">
+                    <label for="imageProduit" class="form-label">Image</label>
+                    <input type="file" id="imageProduit" name="image" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="soldeProduit" class="form-label">Solde</label>
+                    <input type="text" class="form-control" id="soldeProduit" name="soldeProduit" required>
+                </div>
+                <div class="mb-3">
+                    <label for="prixProduit" class="form-label">Prix</label>
+                    <input type="text" class="form-control" id="prixProduit" name="prixProduit" required>
+                </div>
+                <div class="mb-3">
+                    <label for="descriptionProduit" class="form-label">Description</label>
+                    <textarea class="form-control" id="descriptionProduit" name="descriptionProduit" rows="3"
+                        required></textarea>
+                </div>
+                <button id="ajouterProduit" type="button" class="btn btn-primary">Ajouter</button>
+            </form>
+        </div>
+
+        <div class="tab-pane fade" id="pills-modifier-produit" role="tabpanel"
+            aria-labelledby="pills-modifier-produit-tab">
+            <form id="modifierProduitForm">
+                <div class="mb-3">
+                    <label for="m_idProduit" class="form-label">ID</label>
+                    <input type="text" class="form-control" id="m_idProduit" name="m_idProduit" required>
+                </div>
+                <div class="mb-3">
+                    <label for="m_nomProduit" class="form-label">Nom</label>
+                    <input type="text" class="form-control" id="m_nomProduit" name="m_nomProduit" required>
+                </div>
+                <div class="mb-3">
+                    <label for="m_quantiteProduit" class="form-label">Quantité</label>
+                    <input type="number" class="form-control" id="m_quantiteProduit" name="m_quantiteProduit" required>
+                </div>
+                <div class="mb-3">
+                    <label for="m_imageProduit" class="form-label">Image</label>
+                    <input type="file" id="m_imageProduit" name="m_image" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="m_soldeProduit" class="form-label">Solde</label>
+                    <input type="text" class="form-control" id="m_soldeProduit" name="m_soldeProduit" required>
+                </div>
+                <div class="mb-3">
+                    <label for="m_prixProduit" class="form-label">Prix</label>
+                    <input type="text" class="form-control" id="m_prixProduit" name="m_prixProduit" required>
+                </div>
+                <div class="mb-3">
+                    <label for="m_descriptionProduit" class="form-label">Description</label>
+                    <textarea class="form-control" id="m_descriptionProduit" name="m_descriptionProduit" rows="3"
+                        required></textarea>
+                </div>
+                <button id="modifierProduit" type="button" class="btn btn-primary">Modifier</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
