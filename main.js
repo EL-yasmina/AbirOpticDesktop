@@ -11,7 +11,8 @@ function chanrgementData(fenetre, selectPageProduit) {
 function createWindow() {
   const fenetre = new BrowserWindow({
     width: 900,
-    height: 600,
+    height: 800,
+    resizable: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true

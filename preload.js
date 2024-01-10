@@ -7,19 +7,19 @@ const fs = require('fs');
 
 ipcRenderer.on('afficher-commandes', (event, commandes) => {
   console.log("chargement commandes...")
-  const commandesContainer = document.getElementById('pills-commandes');
+  const commandesContainer = document.getElementById('liste-commandes');
   if (commandesContainer != null && commandes != null) {
 
     const tableHTML = `
-      <table class="table">
-        <thead>
+      <table class="table table-striped table-sm">
+        <thead style ="background: red; color: white;">
           <tr>
             <th>ID</th>
-            <th>date</th>
-            <th>id_client</th>
-            <th>id_produit</th>
-            <th>quantite</th>
-            <th>statut</th>
+            <th>Date</th>
+            <th>Client</th>
+            <th>Produit</th>
+            <th>Quantite</th>
+            <th>Statut</th>
             <th>Actions</th>
             <!-- Ajoutez d'autres en-têtes de colonne selon votre schéma de base de données -->
           </tr>
@@ -44,11 +44,12 @@ ipcRenderer.on('afficher-commandes', (event, commandes) => {
                 <td>${commande.nomProduit}</td>
                 <td>${commande.quantite}</td>
                 <td>${tdStatut}</td>
-                <td><button type="button" class="modifier-statut-button btn btn-secondary" id="${commande.id}" name="0">Traitement</button></td>
-                <td><button type="button" class="modifier-statut-button btn btn-success" id="${commande.id}" name="1">Envoye</button></td>
-                <td><button type="button" class="modifier-statut-button btn btn-info" id="${commande.id}" name="2">Reçu</button></td>
-                <td><button type="button" class="modifier-statut-button btn btn-danger" id="${commande.id}" name="3">Annuler</button></td>
-                <!-- Ajoutez d'autres cellules de données selon votre schéma de base de données -->
+                <td>
+                <button type="button" class="modifier-statut-button btn btn-secondary" id="${commande.id}" name="0">Traitement</button>
+                <button type="button" class="modifier-statut-button btn btn-success" id="${commande.id}" name="1">Envoye</button>
+                <button type="button" class="modifier-statut-button btn btn-info" id="${commande.id}" name="2">Reçu</button>
+                <button type="button" class="modifier-statut-button btn btn-danger" id="${commande.id}" name="3">Annuler</button>
+                </td>
               </tr>`
     }).join('')}
         </tbody>
@@ -72,11 +73,11 @@ ipcRenderer.on('afficher-commandes', (event, commandes) => {
 
 ipcRenderer.on('afficher-produits', (event, produits, selectPageProduit) => {
   console.log("chargement produit...")
-  const produitsContainer = document.getElementById('pills-produits');
+  const produitsContainer = document.getElementById('liste-produits');
   if (produitsContainer != null && produits != null) {
 
     const tableHTML = `
-      <table class="table
+      <table class="table table-striped table-sm
       
       ">
         <thead>
@@ -100,8 +101,8 @@ ipcRenderer.on('afficher-produits', (event, produits, selectPageProduit) => {
               <td>${produit.description}</td>
               <td>${produit.quantite}</td>
               <td>${produit.solde}</td>
-              <td><button class="modifier-produit-button btn btn-success" id="${produit.id}">Modifier</button></td>
-              <td><button class="delete-produit-button btn btn-danger" id="${produit.id}">Supprimer</button></td>
+              <td><button class="modifier-produit-button btn btn-success" id="${produit.id}">Modifier</button>
+              <button class="delete-produit-button btn btn-danger" id="${produit.id}">Supprimer</button></td>
               
               <!-- Ajoutez d'autres cellules de données selon votre schéma de base de données -->
             </tr>

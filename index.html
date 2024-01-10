@@ -12,30 +12,93 @@
             display: none;
         }
 
+        .display-block {
+            display: block;
+        }
+
         .error-message {
             color: red;
             margin-top: 10px;
         }
+
+        .carte {
+            max-width: 18rem;
+            margin: 10px;
+            height: 110px;
+            width: 260px;
+        }
+
+        .nav-pills .nav-link.active,
+        .nav-pills .show>.nav-link {
+            background-color: #0367A6;
+        }
+
+        .btn-color {
+            background-color: #0367A6 !important;
+        }
+        .form-produit {
+            margin-left: 50px;
+            margin-right: 50px;
+        }
     </style>
 
     <script>
+        var isAdmin = false;
+        function deconnexion() {
+            document.getElementById("connexion_form").style.display = "block";
+            let list = document.getElementsByClassName("logiciel");
+
+            for (let index = 0; index < list.length; index++) {
+                const element = list[index];
+                element.style.display = "none";
+            }
+        }
         function connexion() {
             let username = document.getElementById("username").value;
             let password = document.getElementById("password").value;
             console.log("username", username);
             console.log("password", password);
-            if (username === "abir" && password === "123") {
+
+            if ((username === "abir" && password === "123") ||
+                (username === "emp" && password === "123")
+            ) {
+                if (username === "abir") {
+                    let deleteButtons = document.getElementsByClassName("delete-produit-button")
+                    for (let index = 0; index < deleteButtons.length; index++) {
+                        const element = deleteButtons[index];
+                        element.style.display = "";
+                    }
+                }
+                else {
+                    let deleteButtons = document.getElementsByClassName("delete-produit-button")
+                    for (let index = 0; index < deleteButtons.length; index++) {
+                        const element = deleteButtons[index];
+                        element.style.display = "none";
+                    }                
+                }
                 console.log("yes");
-                document.getElementById("connexion_form").classList.add("hide");
+                document.getElementById("connexion_form").style.display = "none";
+                let list = document.getElementsByClassName("logiciel");
+
+                for (let index = 0; index < list.length; index++) {
+                    const element = list[index];
+                    element.style.display = "block";
+
+                }
+                //document.getElementById("connexion_form").classList.add("hide");
 
                 // Afficher le contenu de l'onglet Commandes
-                document.getElementById("pills-commandes-tab").classList.add("active");
-                document.getElementById("pills-commandes").classList.add("active", "show");
+                document.getElementById("pills-home-tab").classList.add("active");
+                document.getElementById("pills-home").classList.add("active", "show");
+
+                document.getElementById("pills-commandes-tab").classList.remove("active");
+                document.getElementById("pills-commandes").classList.remove("active", "show");
 
                 // Cacher les autres onglets
                 document.getElementById("pills-produits-tab").classList.remove("active");
                 document.getElementById("pills-ajouter-produit-tab").classList.remove("active");
                 document.getElementById("pills-modifier-produit-tab").classList.remove("active");
+                document.getElementById("pills-deconnexion-tab").classList.remove("active");
 
                 // Cacher les contenus des autres onglets
                 document.getElementById("pills-produits").classList.remove("active", "show");
@@ -45,10 +108,14 @@
                 // Afficher les onglets et leurs contenus
                 document.getElementById("pills-tab").style.display = "flex";
                 document.getElementById("pills-tabContent").style.display = "block";
+
+                document.getElementById("username").value = "";
+                document.getElementById("password").value = "";
             } else {
                 document.getElementById("error-message").textContent = "Erreur de connexion";
 
             }
+
             return false;
         }
     </script>
@@ -68,7 +135,7 @@
                                 <img src="logo.png" alt="BootstrapBrain Logo" width="175" height="57">
                             </a>
                         </div>
-                        <h2 class="fs-6 fw-normal text-center text-secondary mb-4">Bienvenu</h2>
+                        <h1 class="fs-6 fw-normal text-center text-secondary mb-4">Bienvenue</h1>
                         <form id="connexion_form" onsubmit="return connexion();">
                             <div class="row gy-2 overflow-hidden">
                                 <div class="col-12">
@@ -88,7 +155,8 @@
 
                                 <div class="col-12">
                                     <div class="d-grid my-3">
-                                        <button type="submit" class="btn btn-primary btn-lg">Se connecter</button>
+                                        <button type="submit" class="btn btn-primary btn-lg btn-color">Se
+                                            connecter</button>
                                     </div>
                                 </div>
 
@@ -100,15 +168,20 @@
         </div>
     </div>
 
-    <!-- <div>
-        
-    </div> -->
-
-    <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist" style="display: none;">
+    <div class="text-center mb-3 logiciel">
+        <a href="#!">
+            <img src="logo.png" alt="BootstrapBrain Logo" width="175" height="57">
+        </a>
+    </div>
+    <ul class="nav nav-pills nav-fill logiciel" style="background: rgb(204 238 247);padding: 5px;" id="pills-tab"
+        role="tablist" style="display: none;">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="pills-commandes-tab" data-bs-toggle="pill"
-                data-bs-target="#pills-commandes" type="button" role="tab" aria-controls="pills-commandes"
-                aria-selected="true">Commandes</button>
+            <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home"
+                type="button" role="tab" aria-controls="pills-home" aria-selected="true">Accueil</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-commandes-tab" data-bs-toggle="pill" data-bs-target="#pills-commandes"
+                type="button" role="tab" aria-controls="pills-commandes" aria-selected="true">Commandes</button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="pills-produits-tab" data-bs-toggle="pill" data-bs-target="#pills-produits"
@@ -124,18 +197,78 @@
                 data-bs-target="#pills-modifier-produit" type="button" role="tab" aria-controls="pills-modifier-produit"
                 aria-selected="false">Modifier produit</button>
         </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-deconnexion-tab" data-bs-toggle="pill"
+                data-bs-target="#pills-deconnexion" type="button" role="tab" aria-controls="pills-deconnexion"
+                aria-selected="false" onclick="deconnexion()">
+                <img src="se-deconnecter.png" alt="BootstrapBrain Logo" width="35" height="25">
+
+
+            </button>
+        </li>
     </ul>
-    <div class="tab-content" id="pills-tabContent" style="display: none;">
-        <div class="tab-pane fade show active" id="pills-commandes" role="tabpanel"
-            aria-labelledby="pills-commandes-tab">
-            liste commandes
+    <div class="tab-content logiciel" id="pills-tabContent" style="display: none;">
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+
+            <h1 style="margin-top: 17px; text-align: center; margin-bottom: 17px;">Statistiques</h1>
+            <div class="d-flex flex-row justify-content-center">
+                <div class="card border-success mb-3 carte">
+                    <div class="card-body text-success ">
+                        <h5 class="card-title">Produits en stock</h5>
+                        <p class="card-text">125 produits</p>
+                    </div>
+                </div>
+                <div class="card border-danger mb-3 carte">
+                    <div class="card-body text-danger">
+                        <h5 class="card-title">Repture de stock</h5>
+                        <p class="card-text">5 produits en repture de stock</p>
+                    </div>
+                </div>
+                <div class="card border-secondary mb-3 carte">
+                    <div class="card-body text-secondary">
+                        <h5 class="card-title">Commandes en cours</h5>
+                        <p class="card-text">3 commandes en cours de traitement</p>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="d-flex flex-row justify-content-center">
+                <div class="card border-success mb-3 carte">
+                    <div class="card-body text-success">
+                        <h5 class="card-title">Commandes envoyé</h5>
+                        <p class="card-text">3 commande envoyé</p>
+                    </div>
+                </div>
+                <div class="card border-info mb-3 carte">
+                    <div class="card-body text-info">
+                        <h5 class="card-title">Commandes recu</h5>
+                        <p class="card-text">6 commande reçu</p>
+                    </div>
+                </div>
+                <div class="card border-danger mb-3 carte">
+                    <div class="card-body text-danger">
+                        <h5 class="card-title">Commandes annuler</h5>
+                        <p class="card-text">3 commande annuler</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Répétez le même modèle pour les autres cartes -->
+        </div>
+
+        <div class="tab-pane fade show" id="pills-commandes" role="tabpanel" aria-labelledby="pills-commandes-tab">
+            <h1 style="margin-top: 17px; text-align: center; margin-bottom: 17px;">Les commandes</h1>
+            <div id="liste-commandes"></div>
         </div>
         <div class="tab-pane fade" id="pills-produits" role="tabpanel" aria-labelledby="pills-produits-tab">
-            liste produit
+            <h1 style="margin-top: 17px; text-align: center; margin-bottom: 17px;">Les produits</h1>
+            <div id="liste-produits"></div>
         </div>
         <div class="tab-pane fade" id="pills-ajouter-produit" role="tabpanel"
             aria-labelledby="pills-ajouter-produit-tab">
-            <form id="ajouterProduitForm">
+
+            <h1 style="margin-top: 17px; text-align: center; margin-bottom: 17px;">Ajouter un produit</h1>
+            <form id="ajouterProduitForm" class="form-produit">
                 <div class="mb-3">
                     <label for="idProduit" class="form-label">ID</label>
                     <input type="text" class="form-control" id="idProduit" name="idProduit" required>
@@ -165,13 +298,16 @@
                     <textarea class="form-control" id="descriptionProduit" name="descriptionProduit" rows="3"
                         required></textarea>
                 </div>
-                <button id="ajouterProduit" type="button" class="btn btn-primary">Ajouter</button>
+                <div class="d-grid gap-2 col-6 mx-auto mb-4">
+                    <button id="ajouterProduit" type="button" class="btn btn-primary btn-color">Ajouter</button>
+                </div>
             </form>
         </div>
 
         <div class="tab-pane fade" id="pills-modifier-produit" role="tabpanel"
             aria-labelledby="pills-modifier-produit-tab">
-            <form id="modifierProduitForm">
+            <h1 style="margin-top: 17px; text-align: center; margin-bottom: 17px;">Modifier un produit</h1>
+            <form id="modifierProduitForm" class="form-produit">
                 <div class="mb-3">
                     <label for="m_idProduit" class="form-label">ID</label>
                     <input type="text" class="form-control" id="m_idProduit" name="m_idProduit" required>
@@ -201,7 +337,9 @@
                     <textarea class="form-control" id="m_descriptionProduit" name="m_descriptionProduit" rows="3"
                         required></textarea>
                 </div>
-                <button id="modifierProduit" type="button" class="btn btn-primary">Modifier</button>
+                <div class="d-grid gap-2 col-6 mx-auto mb-4">
+                    <button id="modifierProduit" type="button" class="btn btn-primary btn-color">Modifier</button>
+                </div>
             </form>
         </div>
     </div>
