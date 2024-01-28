@@ -3,11 +3,12 @@ const fs = require('fs');
 const path = require('path');
 
 // La Configurations de la base de données
+
 const dbConfig = {
-    host: 'sql11.freesqldatabase.com',
-    user: 'sql11667198',
-    password: 'cdSPCALtRD',
-    database: 'sql11667198'
+    host: 'srv1252.hstgr.io',
+    user: 'u261538081_abir',
+    password: 'Abir_Optic_2024',
+    database: 'u261538081_AbirOptic'
 };
 //mysqli_connect("sql11.freesqldatabase.com","sql11667198","cdSPCALtRD","sql11667198");
 // Création de la connexion à la base de données
