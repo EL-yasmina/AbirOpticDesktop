@@ -67,18 +67,19 @@ function db_deleteProduit(produitId, callback) {
 
 
 function db_ajouterProduit(produit, callback) {
-    const connection= open_database();
+    const connection = open_database();
     const query =
-        'INSERT INTO produit (nom, quantite, image, solde, prix, description) ' +
-        'VALUES (\'' + produit.nom + '\', ' + produit.quantite + ', ' + produit.image + ', ' + produit.solde + ', ' + produit.prix + ', \'' + produit.description + '\');';
+        'INSERT INTO produit (nom, quantite, image, solde, prix, description) VALUES (?, ?, ' + produit.image + ', ?, ?, ?)';
     
-    connection.query(query, () => {
+    const values = [produit.nom, produit.quantite, produit.solde, produit.prix, produit.description];
+
+    connection.query(query, values, (error, results) => {
         callback();
         connection.end();
     });
+
     produit.image = null;
 }
-
 function db_modifierProduit(produit, callback) {
     const connection= open_database();
     console.log('db_modifierProduit', produit)

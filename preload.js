@@ -11,6 +11,7 @@ ipcRenderer.on('afficher-commandes', (event, commandes) => {
   if (commandesContainer != null && commandes != null) {
 
     const tableHTML = `
+    
       <table class="table table-striped table-sm">
         <thead style ="background: red; color: white;">
           <tr>
@@ -46,7 +47,7 @@ ipcRenderer.on('afficher-commandes', (event, commandes) => {
                 <td>${tdStatut}</td>
                 <td>
                 <button type="button" class="modifier-statut-button btn btn-secondary" id="${commande.id}" name="0">Traitement</button>
-                <button type="button" class="modifier-statut-button btn btn-success" id="${commande.id}" name="1">Envoye</button>
+                <button type="button" class="modifier-statut-button btn btn-success" id="${commande.id}" name="1">Envoyé</button>
                 <button type="button" class="modifier-statut-button btn btn-info" id="${commande.id}" name="2">Reçu</button>
                 <button type="button" class="modifier-statut-button btn btn-danger" id="${commande.id}" name="3">Annuler</button>
                 </td>
@@ -68,6 +69,11 @@ ipcRenderer.on('afficher-commandes', (event, commandes) => {
         ipcRenderer.send('modifier-statut-commande', idProduit, statut);
       });
     });
+    const actualiserButton = document.getElementById('actualiser');
+    actualiserButton.addEventListener('click', () => {
+      ipcRenderer.send('actualiser',null);
+    });
+
   }
 });
 
@@ -77,6 +83,7 @@ ipcRenderer.on('afficher-produits', (event, produits, selectPageProduit) => {
   if (produitsContainer != null && produits != null) {
 
     const tableHTML = `
+             
       <table class="table table-striped table-sm
       
       ">
@@ -116,7 +123,6 @@ ipcRenderer.on('afficher-produits', (event, produits, selectPageProduit) => {
 
     const deleteButtons = document.querySelectorAll('.delete-produit-button');
     const modifierButtons = document.querySelectorAll('.modifier-produit-button');
-
     deleteButtons.forEach(button => {
       button.addEventListener('click', () => {
         const idProduit = button.id;
@@ -132,7 +138,6 @@ ipcRenderer.on('afficher-produits', (event, produits, selectPageProduit) => {
         ipcRenderer.send('ouvrir-produit', idProduit);
       });
     });
-
     if (selectPageProduit == true) {
       const ongletProduits = document.getElementById('pills-produits-tab');
       ongletProduits.click();

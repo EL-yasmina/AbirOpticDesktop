@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World!</title>
+    <title>Abir Optic</title>
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <style>
@@ -36,6 +36,7 @@
         .btn-color {
             background-color: #0367A6 !important;
         }
+
         .form-produit {
             margin-left: 50px;
             margin-right: 50px;
@@ -59,8 +60,8 @@
             console.log("username", username);
             console.log("password", password);
 
-            if ((username === "abir" && password === "123") ||
-                (username === "emp" && password === "123")
+            if ((username === "abir" && password === "123456789") ||
+                (username === "emp" && password === "123456789")
             ) {
                 if (username === "abir") {
                     let deleteButtons = document.getElementsByClassName("delete-produit-button")
@@ -74,7 +75,7 @@
                     for (let index = 0; index < deleteButtons.length; index++) {
                         const element = deleteButtons[index];
                         element.style.display = "none";
-                    }                
+                    }
                 }
                 console.log("yes");
                 document.getElementById("connexion_form").style.display = "none";
@@ -170,7 +171,7 @@
 
     <div class="text-center mb-3 logiciel">
         <a href="#!">
-            <img src="logo.png" alt="BootstrapBrain Logo" width="175" height="57">
+            <img src="logo.png" alt="BootstrapBrain Logo" width="175" height="57" id="actualiser">
         </a>
     </div>
     <ul class="nav nav-pills nav-fill logiciel" style="background: rgb(204 238 247);padding: 5px;" id="pills-tab"
@@ -198,6 +199,7 @@
                 aria-selected="false">Modifier produit</button>
         </li>
         <li class="nav-item" role="presentation">
+
             <button class="nav-link" id="pills-deconnexion-tab" data-bs-toggle="pill"
                 data-bs-target="#pills-deconnexion" type="button" role="tab" aria-controls="pills-deconnexion"
                 aria-selected="false" onclick="deconnexion()">

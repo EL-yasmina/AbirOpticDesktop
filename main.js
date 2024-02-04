@@ -20,7 +20,7 @@ function createWindow() {
   });
 
   fenetre.loadFile('index.html');
-  fenetre.webContents.openDevTools();
+  //fenetre.webContents.openDevTools();
   fenetre.webContents.on('did-finish-load', () => {
     chanrgementData(fenetre);
     fenetre.webContents.send('event-formulaire-produit');
@@ -43,6 +43,9 @@ function createWindow() {
   ipcMain.on('modifier-statut-commande', (event, idCommande, statut) => {
     db_modifierStatutCommande(idCommande, statut, () => chanrgementData(fenetre, false));
   });  
+  ipcMain.on('actualiser', (event, produitId) => {
+    chanrgementData(fenetre, false);
+  });
 
 }
 
