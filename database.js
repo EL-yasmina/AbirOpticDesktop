@@ -10,8 +10,6 @@ const dbConfig = {
     password: 'Abir_Optic_2024',
     database: 'u261538081_AbirOptic'
 };
-//mysqli_connect("sql11.freesqldatabase.com","sql11667198","cdSPCALtRD","sql11667198");
-// Création de la connexion à la base de données
 
 // pour Connexion à la base de données
 function open_database(){
